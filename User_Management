@@ -16,8 +16,8 @@
     Has read-only access to case records, assigned criminals, and investigation details. 
     
     This role ensures that investigators can view necessary data without making unapproved changes.
+## Creating the users
 
-# Creating the users
 -- Step 1: Create the users
 
 -- Admin user (full access)
