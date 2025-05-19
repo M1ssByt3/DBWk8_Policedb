@@ -21,3 +21,15 @@ User access is managed through MySQL roles and privileges:
   * Investigators: Limited access to assigned cases and related data.
 
   * Each user account is managed securely using CREATE USER, GRANT, and REVOKE SQL commands.
+
+How to Set Up
+
+  * Ensure MySQL Server and MySQL Workbench are installed.
+
+  * Open MySQL Workbench and connect to your local server.
+
+  * Open the SQL script (police_station_db.sql) via File > Open SQL Script.
+
+  * Execute the script (⚡ button) to create the database and tables.
+
+  * The schema police_station_db will now be visible under the Schemas tab.
