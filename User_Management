@@ -1,1 +1,43 @@
+# User Management for the Police Station DB
 
+* Description
+
+* To maintain data security and role-specific access, this database implements role-based user management using MySQL's CREATE USER and GRANT statements.
+
+  * Admin (admin_user)
+    Has full privileges to manage the entire database. This includes creating, updating, and deleting any data, as well as performing maintenance and schema changes.
+
+  * Duty Officer
+    This user has permission to log new case records, update ongoing case information, and view officer and criminal data. 
+
+    This user plays an active role in the day-to-day operations.
+
+  * Investigator
+    Has read-only access to case records, assigned criminals, and investigation details. 
+    
+    This role ensures that investigators can view necessary data without making unapproved changes.
+
+# Creating the users
+-- Step 1: Create the users
+
+-- Admin user (full access)
+CREATE USER 'admin_user'@'localhost' IDENTIFIED BY 'AdminPass123!';
+GRANT ALL PRIVILEGES ON police_station_db.* TO 'admin_user'@'localhost';
+
+-- Duty Officer (can insert and update cases and view relevant info)
+CREATE USER 'duty_officer'@'localhost' IDENTIFIED BY 'DutyPass123!';
+GRANT SELECT, INSERT, UPDATE ON police_station_db.CaseRecord TO 'duty_officer'@'localhost';
+GRANT SELECT ON police_station_db.Officer TO 'duty_officer'@'localhost';
+GRANT SELECT ON police_station_db.Criminal TO 'duty_officer'@'localhost';
+
+-- Investigator (can only view assigned cases and related records)
+CREATE USER 'investigator'@'localhost' IDENTIFIED BY 'InvestigatorPass123!';
+GRANT SELECT ON police_station_db.CaseRecord TO 'investigator'@'localhost';
+GRANT SELECT ON police_station_db.CaseCriminal TO 'investigator'@'localhost';
+GRANT SELECT ON police_station_db.Criminal TO 'investigator'@'localhost';
+
+-- Step 2: (Optional) Prevent users from accessing other databases
+-- This is automatically handled in modern MySQL if you grant specific schema access only.
+
+-- Step 3: Flush privileges (optional in most cases but safe to include)
+FLUSH PRIVILEGES;
